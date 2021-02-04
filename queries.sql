@@ -1,4 +1,10 @@
 -- Creating tables for PH-EmployeeDB
+DROP TABLE departments CASCADE;
+DROP TABLE dept_emp CASCADE;
+DROP TABLE dept_manager CASCADE;
+DROP TABLE employees CASCADE;
+DROP TABLE salaries CASCADE;
+DROP TABLE titles CASCADE;
 CREATE TABLE departments (
      dept_no VARCHAR(4) NOT NULL,
      dept_name VARCHAR(40) NOT NULL,
@@ -46,6 +52,25 @@ FOREIGN KEY (dept_no) REFERENCES departments (dept_no),
 	 from_date DATE NOT NULL,
      to_date DATE NOT NULL,
 FOREIGN KEY (emp_no) REFERENCES employees (emp_no),
-    PRIMARY KEY (emp_no)
+    PRIMARY KEY (emp_no, from_date)
    );
 SELECT * FROM departments;
+select * from dept_emp;
+select * from employees;
+select * from dept_manager;
+select * from salaries;
+select * from titles;
+SELECT first_name, last_name
+FROM employees
+WHERE birth_Date BETWEEN '1952-01-01' AND '1955-12-31';
+--Number of employees retiring
+select count(first_name)
+from employees
+where (birth_date between '1952-01-01'and '1955-12-31')
+and (hire_date between '1985-01-01' and '1998-12-31');
+SELECT first_name, last_name
+INTO retirement_info
+FROM employees
+WHERE (birth_date BETWEEN '1952-01-01' AND '1955-12-31')
+AND (hire_date BETWEEN '1985-01-01' AND '1988-12-31');
+SELECT * FROM retirement_info;
